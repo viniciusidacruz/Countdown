@@ -1,12 +1,15 @@
 import React from "react";
-import { Text } from "react-native";
+
+import { CountComponent } from "../../components/Count";
+import { HeadingComponent } from "../../components/Heading";
 
 import * as S from "./styles";
 
 export default function HomeScreen() {
   return (
     <S.Container>
-      <Text>HomeScreen</Text>
+      <HeadingComponent />
+      <CountComponent />
     </S.Container>
   );
 }

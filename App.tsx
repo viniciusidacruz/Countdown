@@ -9,9 +9,8 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 
-import { Routes } from "./src/routes";
-
 import theme from "./src/global/theme";
+import HomeScreen from "./src/screens/Home";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,7 +26,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar style="light" translucent backgroundColor="transparent" />
-      <Routes />
+      <HomeScreen />
     </ThemeProvider>
   );
 }
