@@ -5,7 +5,6 @@ interface IColorsProps {
 }
 
 export const Container = styled.View`
-  max-width: 80%;
   width: 100%;
 
   background-color: ${({ theme }) => theme.COLORS.PRIMARY_300};
@@ -14,13 +13,36 @@ export const Container = styled.View`
   padding-left: 10;
   padding-right: 10;
   padding-bottom: 20;
+  margin-bottom: 20;
 
   border-radius: 40;
+
+  position: relative;
+`;
+
+export const Remove = styled.TouchableOpacity`
+  position: absolute;
+
+  top: 16;
+  right: 16;
+
+  width: 26;
+  height: 26;
+`;
+
+export const Icon = styled.Image`
+  width: 24;
+  height: 24;
 `;
 
 export const Row = styled.View`
   flex-direction: row;
   justify-content: space-around;
+`;
+
+export const Grid = styled.View`
+  margin-top: 10;
+  margin-bottom: 20;
 `;
 
 export const CountTitle = styled.Text<IColorsProps>`
@@ -36,3 +58,5 @@ export const CountNumber = styled.Text`
   font-size: 16;
   font-family: ${({ theme }) => theme.FONTS.TEXT};
 `;
+
+export const Description = styled.Text``;

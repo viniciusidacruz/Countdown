@@ -17,6 +17,8 @@ export default {
     WHITE: "#FFFFFF",
     DARK: "#0D0D0D",
 
+    DISABLED: "#BFBFBF",
+
     GRADIENT: ["#0487D9", "#035AA6"],
   },
 

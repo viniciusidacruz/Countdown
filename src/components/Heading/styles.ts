@@ -5,10 +5,7 @@ export const Container = styled.View`
   align-items: center;
   justify-content: space-between;
 
-  max-width: 80%;
   width: 100%;
-
-  margin-bottom: 20;
 `;
 
 export const Column = styled.View`
@@ -20,14 +17,14 @@ export const InfoText = styled.Text`
 
   margin-bottom: 5;
 
-  font-size: 16;
+  font-size: 18;
 `;
 
 export const Visitors = styled.Text`
   color: ${({ theme }) => theme.COLORS.PRIMARY_200};
 
   font-family: ${({ theme }) => theme.FONTS.TITLE};
-  font-size: 18;
+  font-size: 24;
 `;
 
 export const Add = styled.TouchableOpacity`

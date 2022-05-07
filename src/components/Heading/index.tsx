@@ -1,24 +1,28 @@
-import React from "react";
-import { Image } from "react-native";
+import React, { Fragment } from "react";
+import { useEvents } from "../../hooks/useEvents";
 
 const addIcon = require("../../assets/add.png");
 
 import * as S from "./styles";
 
 export function HeadingComponent() {
-  return (
-    <S.Container>
-      <S.Column>
-        <S.InfoText>Welcome</S.InfoText>
-        <S.Visitors>Visitor ✌</S.Visitors>
-      </S.Column>
+  const { setShowModalAdd } = useEvents();
 
-      <S.Column>
-        <S.InfoText>Add Event</S.InfoText>
-        <S.Add>
-          <S.Icon source={addIcon} />
-        </S.Add>
-      </S.Column>
-    </S.Container>
+  return (
+    <Fragment>
+      <S.Container>
+        <S.Column>
+          <S.InfoText>Welcome</S.InfoText>
+          <S.Visitors>Visitor ✌</S.Visitors>
+        </S.Column>
+
+        <S.Column>
+          <S.InfoText>Add Event</S.InfoText>
+          <S.Add onPress={() => setShowModalAdd(true)}>
+            <S.Icon source={addIcon} />
+          </S.Add>
+        </S.Column>
+      </S.Container>
+    </Fragment>
   );
 }

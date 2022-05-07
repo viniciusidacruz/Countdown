@@ -11,6 +11,7 @@ import {
 
 import theme from "./src/global/theme";
 import HomeScreen from "./src/screens/Home";
+import { EventProvider } from "./src/contexts/EventContext";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,8 +26,10 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar style="light" translucent backgroundColor="transparent" />
-      <HomeScreen />
+      <EventProvider>
+        <StatusBar style="light" translucent backgroundColor="transparent" />
+        <HomeScreen />
+      </EventProvider>
     </ThemeProvider>
   );
 }
