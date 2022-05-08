@@ -35,3 +35,18 @@ export const Icon = styled.Image`
   width: 24px;
   height: 24px;
 `;
+
+export const Selected = styled.TouchableOpacity`
+  height: 48;
+
+  justify-content: center;
+  align-items: center;
+
+  padding-left: 16;
+  margin-bottom: 10;
+  border-radius: 8;
+
+  background-color: ${({ theme }) => theme.COLORS.SHAPE};
+`;
+
+export const SelectedDate = styled.Text``;

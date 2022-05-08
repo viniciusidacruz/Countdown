@@ -12,6 +12,8 @@ export const Container = styled.View`
 
 export const Content = styled.View`
   margin-top: 40;
+
+  height: 80%;
 `;
 
 export const Warning = styled.Image`

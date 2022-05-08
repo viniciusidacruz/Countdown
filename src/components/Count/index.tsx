@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { useEvents } from "../../hooks/useEvents";
 
@@ -8,7 +8,6 @@ import { IEventProps } from "./types";
 
 import * as S from "./styles";
 import { Title } from "../../global/styles";
-import { Text } from "react-native";
 
 const icon = require("../../assets/remove.png");
 
@@ -25,13 +24,15 @@ export function CountComponent({ data }: IEventProps) {
 
       <S.Grid>
         <S.Row>
-          {titles.map((title) => (
-            <S.CountTitle color={title.color}>{title.title}</S.CountTitle>
+          {titles.map((title, index: number) => (
+            <S.CountTitle key={`${title.title}-${index}`} color={title.color}>
+              {title.title}
+            </S.CountTitle>
           ))}
         </S.Row>
 
         <S.Row>
-          <S.CountNumber>{data?.day}</S.CountNumber>
+          <S.CountNumber>{data?.days}</S.CountNumber>
           <S.CountNumber>{data?.hours}</S.CountNumber>
           <S.CountNumber>{data?.minutes}</S.CountNumber>
           <S.CountNumber>{data?.seconds}</S.CountNumber>

@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { IContextProps, IEventProps, IProviderProps } from "./types";
@@ -6,13 +6,13 @@ import { IContextProps, IEventProps, IProviderProps } from "./types";
 export const EventContext = createContext({} as IContextProps);
 
 export const EventProvider = ({ children }: IProviderProps) => {
-  const [myEvents, setMyEvents] = useState<IEventProps | any>([]);
   const [showModalAdd, setShowModalAdd] = useState(false);
+  const [myEvents, setMyEvents] = useState<IEventProps | any>([]);
 
-  const handleAddNewEvent = (newEvent: {}) => {
-    setMyEvents((prevState: []) => [...prevState, newEvent]);
+  const handleAddNewEvent = (event: {}) => {
+    setMyEvents((prevState: []) => [...prevState, event]);
 
-    AsyncStorage.setItem("@E", JSON.stringify(newEvent));
+    AsyncStorage.setItem("@E", JSON.stringify(myEvents));
   };
 
   const removeEvent = () => {

@@ -8,9 +8,10 @@ import { Warning } from "../../components/Icons/Warning";
 import { HeadingComponent } from "../../components/Heading";
 import { ContentModal } from "../../components/Contents/Modal";
 
+import { IEventProps } from "./types";
+
 import * as S from "./styles";
 import { Title } from "../../global/styles";
-import { IEventProps } from "./types";
 
 export default function HomeScreen() {
   const { myEvents, showModalAdd, setShowModalAdd } = useEvents();

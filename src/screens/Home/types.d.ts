@@ -1,7 +1,7 @@
 export interface IEventProps {
   title?: string;
   description?: string;
-  day?: string;
+  days?: string;
   hours?: string;
   minutes?: string;
   seconds?: string;

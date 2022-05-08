@@ -1,59 +1,78 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
+import { Platform } from "react-native";
+
+import { useEvents } from "../../../hooks/useEvents";
+import { monthNames } from "../../../common/data/months";
 
 import { Button } from "../../Button";
 import { InputField } from "../../Input";
-
-import { useEvents } from "../../../hooks/useEvents";
 
 const close = require("../../../assets/close.png");
 
 import * as S from "./styles";
 import { Title } from "../../../global/styles";
-import { Platform, Text, TouchableOpacity } from "react-native";
 
 export function ContentModal() {
   const [date, setDate] = useState<any>(new Date());
-  const [selectedDate, setSelectedDate] = useState("Select a date");
   const [showTimePicker, setShowTimePicker] = useState(false);
-  const [valuesEvent, setValuesEvent] = useState({
+  const [selectedDate, setSelectedDate] = useState("Select a date");
+  const [event, setEvent] = useState({
     title: "",
     description: "",
-    day: "",
-    hours: "",
-    minutes: "",
-    seconds: "",
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
   });
 
   const { setShowModalAdd, handleAddNewEvent } = useEvents();
 
-  let interval: any;
+  let interval: any = useRef();
 
   const startTimer = () => {
-    const countdownDate = new Date("May 30,2022").getTime();
+    setShowModalAdd(false);
+    handleAddNewEvent(event);
+
+    const countdownDate = new Date(selectedDate).getTime();
 
     interval = setInterval(() => {
       const now = new Date().getTime();
       const distance = countdownDate - now;
-      const days = Math.floor(distance / (24 * 60 * 60 * 1000));
-      const hours = Math.floor(
-        (distance % (24 * 60 * 60 * 1000)) / (1000 * 60 * 60)
+
+      const Ddays = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const Dhours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
       );
-      const minutes = Math.floor((distance % (60 * 60 * 1000)) / (1000 * 60));
-      const seconds = Math.floor((distance % (60 * 1000)) / 1000);
+      const Dminutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const Dseconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      console.log("Ddays =>", Ddays);
+      console.log("Dhours =>", Dhours);
+      console.log("Dminutes =>", Dminutes);
+      console.log("Dseconds =>", Dseconds);
 
       if (distance < 0) {
-        clearInterval(interval.current);
+        Dhours > 9 ? Dhours : "0";
+        Dminutes > 9 ? Dminutes : "0";
+        Dseconds > 9 ? Dseconds : "0";
       } else {
+        setEvent({
+          ...event,
+          days: Ddays,
+          hours: Dhours,
+          minutes: Dminutes,
+          seconds: Dseconds,
+        });
       }
-    });
+    }, 1000);
   };
 
   const handleChangeTimer = (
     event: DateTimePickerEvent,
-    selectedDate: string
+    selectedDate: Date | undefined
   ) => {
     const currentDate = selectedDate || date;
 
@@ -61,11 +80,12 @@ export function ContentModal() {
     setDate(currentDate);
 
     const tempDate = new Date(currentDate);
+
     const dateFull =
+      monthNames[tempDate.getMonth()] +
+      " " +
       tempDate.getDate() +
-      "/" +
-      (tempDate.getMonth() + 1) +
-      "/" +
+      "," +
       tempDate.getFullYear();
 
     setSelectedDate(dateFull);
@@ -76,16 +96,7 @@ export function ContentModal() {
   };
 
   const isDisabled =
-    !valuesEvent.title ||
-    !valuesEvent.description ||
-    !valuesEvent.day ||
-    !valuesEvent.hours ||
-    !valuesEvent.minutes ||
-    !valuesEvent.seconds;
-
-  const registerEvent = () => {
-    handleAddNewEvent(valuesEvent);
-  };
+    !event.title || !event.description || selectedDate === "Select a date";
 
   return (
     <S.Background>
@@ -100,20 +111,17 @@ export function ContentModal() {
 
         <InputField
           label="Title"
-          onChangeText={(value) =>
-            setValuesEvent({ ...valuesEvent, title: value })
-          }
-        />
-        <InputField
-          label="Description"
-          onChangeText={(value) =>
-            setValuesEvent({ ...valuesEvent, description: value })
-          }
+          onChangeText={(value) => setEvent({ ...event, title: value })}
         />
 
-        <TouchableOpacity onPress={() => showDate()}>
-          <Text>{selectedDate}</Text>
-        </TouchableOpacity>
+        <InputField
+          label="Description"
+          onChangeText={(value) => setEvent({ ...event, description: value })}
+        />
+
+        <S.Selected onPress={() => showDate()}>
+          <S.SelectedDate>{selectedDate}</S.SelectedDate>
+        </S.Selected>
 
         {showTimePicker && (
           <DateTimePicker
@@ -126,38 +134,9 @@ export function ContentModal() {
           />
         )}
 
-        {/* <InputField
-          label="Day"
-          keyboardType="numeric"
-          onChangeText={(value) =>
-            setValuesEvent({ ...valuesEvent, day: value })
-          }
-        />
-        <InputField
-          label="Hours"
-          keyboardType="numeric"
-          onChangeText={(value) =>
-            setValuesEvent({ ...valuesEvent, hours: value })
-          }
-        />
-        <InputField
-          label="Minutes"
-          keyboardType="numeric"
-          onChangeText={(value) =>
-            setValuesEvent({ ...valuesEvent, minutes: value })
-          }
-        />
-        <InputField
-          label="Seconds"
-          keyboardType="numeric"
-          onChangeText={(value) =>
-            setValuesEvent({ ...valuesEvent, seconds: value })
-          }
-        /> */}
-
         <Button
           title="Create"
-          onPress={() => registerEvent()}
+          onPress={() => startTimer()}
           disabled={isDisabled}
           isDisabled={isDisabled}
         />
