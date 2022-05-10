@@ -1,5 +1,4 @@
 import React, { useState, createContext } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { IContextProps, IEventProps, IProviderProps } from "./types";
 
@@ -9,26 +8,22 @@ export const EventProvider = ({ children }: IProviderProps) => {
   const [showModalAdd, setShowModalAdd] = useState(false);
   const [myEvents, setMyEvents] = useState<IEventProps | any>([]);
 
-  const handleAddNewEvent = (event: {}) => {
-    setMyEvents((prevState: []) => [...prevState, event]);
+  const removeEvent = (index: number) => {
+    const list = [...myEvents];
 
-    AsyncStorage.setItem("@E", JSON.stringify(myEvents));
-  };
+    list.splice(index, 1);
 
-  const removeEvent = () => {
-    setMyEvents((myEvents: []) =>
-      myEvents.filter((_, i) => i !== myEvents.length - 1)
-    );
+    setMyEvents(list);
   };
 
   return (
     <EventContext.Provider
       value={{
         myEvents,
+        setMyEvents,
         removeEvent,
         showModalAdd,
         setShowModalAdd,
-        handleAddNewEvent,
       }}
     >
       {children}

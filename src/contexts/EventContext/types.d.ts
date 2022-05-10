@@ -12,8 +12,8 @@ export interface IEventProps {
 export interface IContextProps {
   myEvents: Array[];
   showModalAdd: boolean;
-  handleAddNewEvent: (newEvent: {}) => void;
-  removeEvent: () => void;
+  removeEvent: (index: number) => void;
+  setMyEvents: ([]: Array) => void;
   setShowModalAdd: (state: boolean) => void;
 }
 

@@ -25,9 +25,15 @@ export default function HomeScreen() {
           <Title size={32}>My events</Title>
           <ScrollView>
             {myEvents.length > 0 ? (
-              myEvents.map((event: IEventProps, index: number) => (
-                <CountComponent key={`${event.title}-${index}`} data={event} />
-              ))
+              myEvents.map((event: IEventProps, index: number) => {
+                return (
+                  <CountComponent
+                    key={`${index}`}
+                    event={event}
+                    index={index}
+                  />
+                );
+              })
             ) : (
               <Warning description="No events registered" />
             )}

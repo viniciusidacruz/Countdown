@@ -8,7 +8,7 @@ export const Title = styled.Text<IModeProps>`
 
   font-size: ${({ size }) => size && size};
   font-family: ${({ theme }) => theme.FONTS.TITLE};
-  text-transform: uppercase;
+  text-transform: ${({ uppercase }) => (uppercase ? "uppercase" : "none")};
 
   text-align: center;
 `;

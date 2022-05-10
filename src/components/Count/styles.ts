@@ -1,9 +1,5 @@
 import styled from "styled-components/native";
 
-interface IColorsProps {
-  color: string;
-}
-
 export const Container = styled.View`
   width: 100%;
 
@@ -26,8 +22,8 @@ export const Remove = styled.TouchableOpacity`
   top: 16;
   right: 16;
 
-  width: 26;
-  height: 26;
+  width: 32;
+  height: 32;
 `;
 
 export const Icon = styled.Image`
@@ -45,7 +41,7 @@ export const Grid = styled.View`
   margin-bottom: 20;
 `;
 
-export const CountTitle = styled.Text<IColorsProps>`
+export const CountTitle = styled.Text`
   color: ${({ theme }) => theme.COLORS.SHAPE};
 
   font-size: 16;
